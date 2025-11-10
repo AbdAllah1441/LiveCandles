@@ -324,7 +324,7 @@ export default function CombinedLiveHistoricalChart() {
           <div>
             <div className="flex items-center gap-3 mb-2 max-md:flex-col max-md:items-start">
               <h1 className="md:text-3xl text-base sm:text-xl font-bold text-foreground">
-                BTC/USD Combined Chart
+                BTC/USD
               </h1>
               <div className="flex items-center gap-2">
                 <span
@@ -343,15 +343,8 @@ export default function CombinedLiveHistoricalChart() {
               <span className="text-green-400">
                 {currentPrice ? `$${currentPrice.toFixed(2)}` : "Loading..."}
               </span>{" "}
-              - Historical + Live Stream
             </span>
           </div>
-          <h6 className="md:text-lg text-xs sm:text-sm text-foreground">
-            {new Date().toLocaleDateString("en-US", {
-              month: "long",
-              year: "numeric",
-            })}
-          </h6>
         </div>
 
         {/* Chart */}
