@@ -215,40 +215,33 @@ export default function CombinedLiveHistoricalChart() {
     const API_KEY = "d1fb3cdd261d4aa2abce1adfb4427258";
     const url = `wss://ws.twelvedata.com/v1/quotes/price?apikey=${API_KEY}`;
 
-    let heartbeatInterval: NodeJS.Timeout | null = null;
-    const ws = new WebSocket(url);
-    wsRef.current = ws;
+    wsRef.current = new WebSocket(url);
 
-    ws.onopen = () => {
+    wsRef.current.onopen = () => {
       console.log("WebSocket Connected ✅");
       setStatus("Live");
 
-      ws.send(
+      wsRef.current?.send(
         JSON.stringify({
           action: "subscribe",
           params: { symbols: "BTC/USD" },
         })
       );
 
-      // HEARTBEAT - only send if connection is still open
-      heartbeatInterval = setInterval(() => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify({ action: "heartbeat" }));
-          console.log("Heartbeat sent");
-        }
+      // HEARTBEAT
+      const hb = setInterval(() => {
+        wsRef.current?.send(JSON.stringify({ action: "heartbeat" }));
       }, 10000);
-    };
 
-    ws.onclose = (event) => {
-      console.log("WebSocket Closed", event.code, event.reason);
-      if (heartbeatInterval) {
-        clearInterval(heartbeatInterval);
-      }
-      setStatus("Disconnected");
+      // Cleanup heartbeats
+      wsRef.current!.onclose = () => {
+        clearInterval(hb);
+        setStatus("Disconnected");
+      };
     };
 
     // Handle messages
-    ws.onmessage = (msg) => {
+    wsRef.current.onmessage = (msg) => {
       const data: PriceEvent = JSON.parse(msg.data);
 
       if (data.event === "price" && data.symbol === "BTC/USD") {
@@ -299,17 +292,13 @@ export default function CombinedLiveHistoricalChart() {
       }
     };
 
-    ws.onerror = (error) => {
+    wsRef.current.onerror = (error) => {
       console.error("WebSocket error:", error);
       setStatus("Connection error");
     };
 
     return () => {
-      console.log("Cleanup: Closing WebSocket");
-      if (heartbeatInterval) {
-        clearInterval(heartbeatInterval);
-      }
-      ws.close();
+      wsRef.current?.close();
     };
   }, [isHistoricalLoaded]);
 
