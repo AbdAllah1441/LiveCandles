@@ -327,9 +327,6 @@ export default function CombinedLiveHistoricalChart() {
                 BTC/USD Combined Chart
               </h1>
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-sky-400/20 text-sky-400 border border-sky-400/50">
-                  Historical
-                </span>
                 <span
                   className={`px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold ${
                     status === "Live"
