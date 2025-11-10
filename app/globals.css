@@ -1,26 +1,418 @@
 @import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+  /* Global variables only - theme-independent */
+  --font-poppins: "Poppins", sans-serif;
+  --font-changa: "Changa", sans-serif;
+  --font-english: var(--font-poppins);
+  --font-arabic: var(--font-changa);
+  --primary: #00bddd;
+  --text-danger: #ed1c1c;
+  --text-success: #088d25;
+  --text-green: #0fedbe;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* sign up */
+  --sign-blue: #00bddd;
+
+  /* ======================= */
+  /* Strategies Page Variables */
+  /* ===================== */
+  --strategies-border: #2dcaff40;
+  --strategies-blue: #00bddd;
+  --strategies-green: #10ed65;
+  --strategies-red: #ed1c1c;
+  --strategies-gray: #828282;
+
+  --overview-grey: #6e6e6e;
+  --overview-green: #0fedbe;
+  --trades-green: #10ed65;
+  --trades-red: #e92424;
+
+  /* ======================= */
+  /* Profile Page Variables */
+  /* ===================== */
+
+  /* Text Colors */
+}
+.dark {
+  --background: #050505;
+  --foreground: #ffffff;
+
+  /* sign up */
+  --sign-foreground: #ffffff;
+  --sign-header-foreground: #ffffff;
+  --sign-right-foreground: #ffffff;
+  --sign-grey-header: #888888;
+  --sign-grey: #ffffff99;
+  --sign-border: #ffffff1a;
+  --sign-line-grey: #ffffff1a;
+
+  /* Dark theme - Profile Page */
+  --profile-text-primary: #ffffff;
+  --profile-text-secondary: #b2b2b2;
+  --profile-text-muted: #9c9c9c;
+  --profile-text-date: #a7a7a7;
+  --profile-text-edit: #838383;
+  --profile-accent-blue: #2dcaff;
+  --profile-accent-primary: #00bddd;
+  --profile-success: #10ed65;
+  --profile-success-alt: #28b446;
+  --profile-success-bg: #001c09;
+  --profile-disabled-bg: #2c2c2c;
+  --profile-disabled-text: #9c9c9c;
+  --profile-danger: #ed1c1c;
+  --profile-border-primary: #424242;
+  --profile-border-secondary: #2c2c2c;
+  --profile-border-accent: rgba(45, 202, 255, 0.25);
+  --profile-bg-main: #050505;
+  --profile-bg-card: #0a0a0a;
+  --profile-bg-gradient-start: rgba(12, 12, 12, 0.29);
+  --profile-bg-gradient-end: rgba(35, 136, 170, 0.01);
+  --blue-button-text: #050505;
+
+  /* Home Page Variables - Dark Mode (Current Hardcoded Values) */
+  --home-bg-main: #050505;
+  --home-text-primary: #ffffff;
+  --home-text-secondary: rgba(255, 255, 255, 0.7);
+  --home-text-muted: #c7c7c7;
+  --home-text-table: #c0c0c0;
+  --home-card-bg: #1a1a1a;
+  --home-card-border: #2dcfff;
+  --home-button-bg: #00bddd;
+  --home-button-text: var(--blue-button-text);
+  --home-success: #10ed65;
+  --home-success-bg: #001c09;
+  --home-danger: #ed1c1c;
+  --home-danger-alt: #088d25;
+  --home-search-bg: #000000;
+  --home-search-text: #999999;
+  --home-search-border: rgba(238, 238, 238, 0.5);
+  --home-table-border: #374151;
+
+  /* Opportunities Page Variables - Dark Mode */
+  --opportunities-bg-main: #050505;
+  --opportunities-text-primary: #ffffff;
+  --opportunities-text-secondary: #c7c7c7;
+  --opportunities-text-muted: #a7a7a7;
+  --opportunities-card-bg: linear-gradient(
+    90deg,
+    rgba(12, 12, 12, 0.29) 0%,
+    rgba(35, 136, 170, 0.01) 139.3%
+  );
+  --opportunities-button-primary: #00bddd;
+  --opportunities-button-secondary: #00a1bc;
+  --opportunities-button-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(45, 202, 255, 0.1) 0%,
+    rgba(125, 222, 255, 0.045) 73.82%
+  );
+  --opportunities-success: #10ed65;
+  --opportunities-success-bg: #001c09;
+  --opportunities-danger: #ed1c1c;
+  --opportunities-danger-bg: #110000;
+  /* Opportunities borders - Dark */
+  --opportunities-border-secondary: #5c5c5c;
+
+  /* Account Navbar Variables - Dark Mode */
+  --navbar-search-bg: #191919;
+  --navbar-search-border: rgba(128, 128, 128, 0.4);
+  --navbar-search-icon: #999999;
+  --navbar-search-text: #999999;
+
+  /* Sidebar Variables - Dark Mode */
+  --sidebar-bg: #000000;
+  --sidebar-text-primary: #ffffff;
+  --sidebar-text-secondary: #c7c7c7;
+  --sidebar-icon-inactive: #c7c7c7;
+  --sidebar-icon-active: #00bddd;
+  --sidebar-active-bg: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(45, 202, 255, 0.1) 0%,
+    rgba(125, 222, 255, 0.045) 73.82%
+  );
+  --sidebar-active-text: #00bddd;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.05);
+
+  /* Mobile Navigation Variables - Dark Mode */
+  --mobile-nav-bg: #000000;
+  --mobile-nav-text: #ffffff;
+  --mobile-sidebar-bg: var(--sidebar-bg);
+  --mobile-overlay-bg: rgba(0, 0, 0, 0.5);
+
+  /* strategies page */
+  --strategies-nav-grey: #999999;
+  --strategies-nav-border: #1f1f1f;
+  --strategies-table-grey: #9d9d9d;
+  --strategies-table-header: #ffffff;
+  --strategies-table-header-border: #535353;
+  --strategies-table-semi-border: #242424;
+  --strategies-table-row-border: #2b2b2b;
+  --strategies-table-data: #ffffff;
+
+  /*trade*/
+  --trade-border: #ffffff1a;
+  --trade-text: #fff;
+
+  /* table */
+  --border-color: #2c2c2c;
+  --hover-bg: rgba(255, 255, 255, 0.03);
+
+  /* pop up */
+  --popup-grey: #888888;
+  --popup-button-grey: #141414;
+}
+.light {
+  --background: #fefefe;
+  --foreground: #111111;
+
+  /* sign up */
+  --sign-header-foreground: #0b0b0b;
+  --sign-foreground: #0c0c0c;
+  --sign-right-foreground: #171717;
+  --sign-grey-header: #464646;
+  --sign-grey: #00000099;
+  --sign-border: #00000052;
+  --sign-line-grey: #00000052;
+
+  /* Light theme - Profile Page */
+  --profile-text-primary: #161616;
+  --profile-text-secondary: #606060;
+  --profile-text-muted: #9c9c9c;
+  --profile-text-date: #808080;
+  --profile-text-edit: #838383;
+  --profile-accent-blue: #2dcaff;
+  --profile-accent-primary: #00bddd;
+  --profile-success: #04cf52;
+  --profile-success-alt: #28b446;
+  --profile-success-bg: #c4f8d6;
+  --profile-disabled-bg: #e0e0e0;
+  --profile-disabled-text: #9c9c9c;
+  --profile-danger: #ed1c1c;
+  --profile-border-primary: #949494;
+  --profile-border-secondary: #5c5c5c;
+  --profile-border-accent: rgba(45, 202, 255, 0.25);
+  --profile-bg-main: #fefefe;
+  --profile-bg-card: #f8f8f8;
+  --profile-bg-gradient-start: rgba(46, 193, 243, 0.19);
+  --profile-bg-gradient-end: rgba(242, 242, 242, 0.29);
+  --blue-button-text: #ffffff;
+
+  /* Home Page Variables - Light Mode*/
+  --home-bg-main: #fefefe;
+
+  --home-text-primary: #161616;
+  --home-text-secondary: #606060;
+  --home-text-muted: #707070;
+  --home-text-table: #606060;
+  --home-card-bg: #f8f8f8;
+  --home-card-border: #2dcfff;
+  --home-button-bg: #00bddd;
+  --home-button-text: var(--blue-button-text);
+  --home-success: #008332;
+  --home-success-bg: #a7ffc4;
+  --home-danger: #ed1c1c;
+  --home-danger-alt: #28b446;
+  --home-search-bg: #ffffff;
+  --home-search-text: #999999;
+  --home-search-border: rgba(32, 32, 32, 0.5);
+  --home-table-border: #e5e7eb;
+
+  /* Opportunities Page Variables - Light Mode */
+  --opportunities-bg-main: #fefefe;
+  --opportunities-text-primary: #121212;
+  --opportunities-text-secondary: #706e6e;
+  --opportunities-text-muted: #6c6c6c;
+  --opportunities-card-bg: linear-gradient(
+    90deg,
+    rgba(242, 242, 242, 0.29) 0%,
+    rgba(46, 193, 243, 0.19) 139.3%
+  );
+  --opportunities-button-primary: #00bddd;
+  --opportunities-button-secondary: #00a1bc;
+  --opportunities-button-gradient: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(45, 202, 255, 0.48) 0%,
+    rgba(125, 222, 255, 0.12) 73.82%
+  );
+  --opportunities-success: #04cf52;
+  --opportunities-success-bg: #c4f8d6;
+  --opportunities-danger: #ed1c1c;
+  --opportunities-danger-bg: #fdd4d4;
+  /* Opportunities borders - Light */
+  --opportunities-border-secondary: #e0e0e0;
+
+  /* Account Navbar Variables - Light Mode */
+  --navbar-search-bg: transparent;
+  --navbar-search-border: rgba(166, 166, 166, 0.5);
+  --navbar-search-icon: #999999;
+  --navbar-search-text: #999999;
+
+  /* Sidebar Variables - Light Mode */
+  --sidebar-bg: #f8f8f8;
+  --sidebar-text-primary: #262626;
+  --sidebar-text-secondary: #404040;
+  --sidebar-icon-inactive: #404040;
+  --sidebar-icon-active: #00bddd;
+  --sidebar-active-bg: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(45, 202, 255, 0.48) 0%,
+    rgba(125, 222, 255, 0.12) 73.82%
+  );
+  --sidebar-active-text: #00bddd;
+  --sidebar-hover-bg: rgba(0, 0, 0, 0.05);
+
+  /* Mobile Navigation Variables - Light Mode */
+  --mobile-nav-bg: #ffffff;
+  --mobile-nav-text: #000000;
+  --mobile-sidebar-bg: var(--sidebar-bg);
+  --mobile-overlay-bg: rgba(0, 0, 0, 0.5);
+
+  /* strategies page */
+  --strategies-nav-grey: #666666;
+  --strategies-nav-border: #e5e5e5;
+  --strategies-table-grey: #5d5d5d;
+  --strategies-table-header: #141414;
+  --strategies-table-header-border: #838383;
+  --strategies-table-semi-border: #b9b9b9;
+  --strategies-table-row-border: #a7a7a7;
+  --strategies-table-data: #0d0d0d;
+  /* trade */
+  --trade-border: #0000004a;
+  --trade-text: #111111;
+
+  /* table */
+  --border-color: #e5e7eb;
+  --hover-bg: rgba(0, 0, 0, 0.02);
+
+  /* pop up */
+  --popup-grey: #626262;
+  --popup-button-grey: #e9e9e9;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-english);
+}
+
+/* Arabic locale font */
+html[lang="ar"] body {
+  font-family: var(--font-arabic);
+}
+
+@layer base {
+  /* pop-up */
+
+  /* end popup */
+  table.scrolldown {
+    width: 100%;
+
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 2px solid black;
+  }
+
+  /* To display the block as level element */
+  table.scrolldown tbody,
+  table.scrolldown thead {
+    display: block;
+  }
+
+  thead tr th {
+    height: 40px;
+    line-height: 40px;
+  }
+
+  table.scrolldown tbody {
+    /* Set the height of table body */
+    height: 50px;
+
+    /* Set vertical scroll */
+    overflow-y: auto;
+
+    /* Hide the horizontal scroll */
+    overflow-x: hidden;
+  }
+
+  tbody {
+    border-top: 2px solid black;
+  }
+
+  tbody td,
+  thead th {
+    width: 200px;
+    border-right: 2px solid black;
+  }
+
+  td {
+    text-align: center;
+  }
+}
+
+@layer components {
+  /* Override global tbody border for assets table */
+  .assets-table tbody {
+    border-top: none !important;
+  }
+
+  .assets-table tbody td {
+    border-right: none !important;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text-primary);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sidebar stays on the left for all locales */
+  html[dir="rtl"] .sidebar {
+    left: 0;
+    right: auto;
+  }
+
+  .sidebar h2 {
+    margin-bottom: 20px;
+  }
+
+  .sidebar ul {
+    list-style: none;
+  }
+
+  .sidebar li {
+    margin: 15px 0;
+  }
+
+  .sidebar a {
+    color: var(--sidebar-text-secondary);
+    text-decoration: none;
+  }
+
+  .sidebar a:hover {
+    text-decoration: none;
+  }
+
+  /* Blue button text classes for theme-aware text color */
+  .blue-button-text {
+    color: var(--blue-button-text);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  /* Selected asset row styling */
+  .selected-asset-row {
+    border-inline-start: 5px solid var(--primary) !important;
+    border-radius: 5px;
+  }
 }
