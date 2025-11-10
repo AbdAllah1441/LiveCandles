@@ -215,33 +215,40 @@ export default function CombinedLiveHistoricalChart() {
     const API_KEY = "d1fb3cdd261d4aa2abce1adfb4427258";
     const url = `wss://ws.twelvedata.com/v1/quotes/price?apikey=${API_KEY}`;
 
-    wsRef.current = new WebSocket(url);
+    let heartbeatInterval: NodeJS.Timeout | null = null;
+    const ws = new WebSocket(url);
+    wsRef.current = ws;
 
-    wsRef.current.onopen = () => {
+    ws.onopen = () => {
       console.log("WebSocket Connected ✅");
       setStatus("Live");
 
-      wsRef.current?.send(
+      ws.send(
         JSON.stringify({
           action: "subscribe",
           params: { symbols: "BTC/USD" },
         })
       );
 
-      // HEARTBEAT
-      const hb = setInterval(() => {
-        wsRef.current?.send(JSON.stringify({ action: "heartbeat" }));
+      // HEARTBEAT - only send if connection is still open
+      heartbeatInterval = setInterval(() => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ action: "heartbeat" }));
+          console.log("Heartbeat sent");
+        }
       }, 10000);
+    };
 
-      // Cleanup heartbeats
-      wsRef.current!.onclose = () => {
-        clearInterval(hb);
-        setStatus("Disconnected");
-      };
+    ws.onclose = (event) => {
+      console.log("WebSocket Closed", event.code, event.reason);
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval);
+      }
+      setStatus("Disconnected");
     };
 
     // Handle messages
-    wsRef.current.onmessage = (msg) => {
+    ws.onmessage = (msg) => {
       const data: PriceEvent = JSON.parse(msg.data);
 
       if (data.event === "price" && data.symbol === "BTC/USD") {
@@ -292,13 +299,17 @@ export default function CombinedLiveHistoricalChart() {
       }
     };
 
-    wsRef.current.onerror = (error) => {
+    ws.onerror = (error) => {
       console.error("WebSocket error:", error);
       setStatus("Connection error");
     };
 
     return () => {
-      wsRef.current?.close();
+      console.log("Cleanup: Closing WebSocket");
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval);
+      }
+      ws.close();
     };
   }, [isHistoricalLoaded]);
 
